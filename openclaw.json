@@ -1,0 +1,13 @@
+{
+  "agents": {
+    "defaults": {
+      "workspace": "./workspace",
+      "model": "gemini/gemini-2.5-flash"
+    }
+  },
+  "channels": {
+    "whatsapp": {
+      "enabled": true
+    }
+  }
+}

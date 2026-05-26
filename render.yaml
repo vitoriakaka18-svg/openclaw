@@ -13,6 +13,16 @@ services:
         value: /data/workspace
       - key: OPENCLAW_GATEWAY_TOKEN
         generateValue: true
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SANITY_PROJECT_ID
+        sync: false
+      - key: SANITY_DATASET
+        sync: false
+      - key: SANITY_TOKEN
+        sync: false
+      - key: MP_ACCESS_TOKEN
+        sync: false
     disk:
       name: openclaw-data
       mountPath: /data
