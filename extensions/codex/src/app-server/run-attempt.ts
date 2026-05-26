@@ -2722,9 +2722,8 @@ export async function runCodexAppServerAttempt(
   const codexDiagnosticToolDefinitions = codexModelContentCapture.toolDefinitions
     ? buildCodexDiagnosticToolDefinitions(tools)
     : undefined;
-  const codexModelContentPrivateData = (
-    modelContent: DiagnosticModelCallContent | undefined,
-  ) => (modelContent && Object.keys(modelContent).length > 0 ? { modelContent } : undefined);
+  const codexModelContentPrivateData = (modelContent: DiagnosticModelCallContent | undefined) =>
+    modelContent && Object.keys(modelContent).length > 0 ? { modelContent } : undefined;
   const buildCodexModelCallDiagnosticContent = (): DiagnosticModelCallContent | undefined => {
     const modelContent = {
       ...(codexModelContentCapture.inputMessages
@@ -2768,9 +2767,7 @@ export async function runCodexAppServerAttempt(
         ...buildCodexModelCallDiagnosticContent(),
         ...(codexModelContentCapture.outputMessages
           ? {
-              outputMessages: result.lastAssistant
-                ? [result.lastAssistant]
-                : result.assistantTexts,
+              outputMessages: result.lastAssistant ? [result.lastAssistant] : result.assistantTexts,
             }
           : {}),
       }),
@@ -5785,7 +5782,7 @@ async function mirrorPromptAtTurnStartBestEffort(params: {
         });
       }
     })();
-    params.params.onUserMessagePersistencePending?.(mirrorPromise);
+    params.params.userTurnTranscriptRecorder?.markRuntimePersistencePending(mirrorPromise);
     await mirrorPromise;
   } catch (error) {
     embeddedAgentLog.warn("failed to mirror codex app-server prompt at turn start", { error });
