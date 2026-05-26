@@ -10,7 +10,7 @@ Use esta habilidade quando a cliente demonstrar intenção real de compra mas pr
 ## Comando
 
 ```bash
-node ~/.openclaw/workspace/skills/reservarPeca/reservarPeca.js '{"id": "156d0830-ab3f...", "nomeCliente": "Joana", "emailCliente": "joana@email.com"}'
+node ~/.openclaw/workspace/skills/reservarPeca/reservarPeca.js '{"id": "156d0830-ab3f...", "nomeCliente": "Joana", "emailCliente": "joana@email.com"}' '{{From}}'
 ```
 
 | Campo          | Descrição                                      |

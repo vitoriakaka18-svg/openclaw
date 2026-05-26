@@ -1,7 +1,13 @@
+import { promises as fs } from "fs";
+import path from "path";
+
 const projectId = (process.env.SANITY_PROJECT_ID || "rljynorj").trim();
 const dataset = (process.env.SANITY_DATASET || "production").trim();
 const token = (process.env.SANITY_TOKEN || "").trim();
 const inputStr = process.argv[2] || "{}";
+const clientJid = process.argv[3] || "desconhecido@s.whatsapp.net";
+
+const PAGAMENTOS_FILE = path.join(process.cwd(), "workspace", "pagamentos.json");
 
 async function criarPedido() {
   if (!token) {
@@ -54,6 +60,7 @@ async function criarPedido() {
         },
         name: data.nomeProduto,
         size: data.tamanho || "",
+        color: data.cor || "",
         price: Number(data.total),
       },
     ],
@@ -105,9 +112,35 @@ async function criarPedido() {
     console.log(`Sanity Document ID: ${newId}`);
     console.log(`Status: Aguardando Pagamento ⏳`);
     console.log(`Produto: ${data.nomeProduto}`);
+    if (data.cor) console.log(`Cor: ${data.cor}`);
     console.log(`Cliente: ${data.nomeCliente}`);
     console.log(`Total: R$ ${Number(data.total).toFixed(2)}`);
     if (data.dataRetirada) console.log(`Retirada: ${data.dataRetirada}`);
+
+    // 4. Salva o pagamento pendente localmente em pagamentos.json
+    let pagamentos = {};
+    try {
+      const fileContent = await fs.readFile(PAGAMENTOS_FILE, "utf8");
+      pagamentos = JSON.parse(fileContent);
+    } catch (err) {
+      pagamentos = {};
+    }
+
+    pagamentos[clientJid] = {
+      paymentId: String(data.paymentMPId || ""),
+      orderId: data.orderId,
+      sanityId: newId,
+      pecaNome: data.nomeProduto,
+      pecaId: data.produtoId,
+      nomeCliente: data.nomeCliente,
+      total: Number(data.total),
+      timestamp: Date.now(),
+      lembretePixEnviado: false,
+      lembreteCarrinhoEnviado: false,
+    };
+
+    await fs.writeFile(PAGAMENTOS_FILE, JSON.stringify(pagamentos, null, 2), "utf8");
+    console.log(`💾 Pagamento pendente salvo localmente para a varredura automática!`);
   } catch (err) {
     console.error("Erro ao criar pedido:", err.message);
     process.exit(1);

@@ -27,6 +27,9 @@ query += `] | order(_updatedAt desc) {
   "categoria": category,
   "subcategoria": subcategory,
   "condicao": condition,
+  "detalhes": details,
+  "cor": color,
+  "cores": colors[]->nome,
   "status": status,
   "imagemUrl": "https://cdn.sanity.io/images/${projectId}/${dataset}/" + imagePrimary.asset->_id + "-" + string(imagePrimary.asset->metadata.dimensions.width) + "x" + string(imagePrimary.asset->metadata.dimensions.height) + "." + imagePrimary.asset->extension,
   "imagemUrlAlt": "https://cdn.sanity.io/images/${projectId}/${dataset}/" + imageSecondary.asset->_id + "-" + string(imageSecondary.asset->metadata.dimensions.width) + "x" + string(imageSecondary.asset->metadata.dimensions.height) + "." + imageSecondary.asset->extension

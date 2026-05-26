@@ -27,6 +27,7 @@ Use esta habilidade **logo após** gerar o PIX com sucesso, passando o `orderId`
 | ----------------- | --------------------------------------------- |
 | `emailCliente`    | E-mail da cliente                             |
 | `tamanho`         | Tamanho escolhido                             |
+| `cor`             | Cor escolhida da peça (ex: "Verde menta")     |
 | `dataRetirada`    | Data e hora da retirada (ex: "amanhã às 14h") |
 | `enderecoEntrega` | Endereço completo para entrega                |
 | `notas`           | Observações do pedido                         |
@@ -34,7 +35,7 @@ Use esta habilidade **logo após** gerar o PIX com sucesso, passando o `orderId`
 ## Comando
 
 ```bash
-node ~/.openclaw/workspace/skills/criarPedido/criarPedido.js '{"orderId":"ADL-MPMSKZ2D","paymentMPId":"123456","produtoId":"156d0830-ab3f-4c5d-b83c-ee1ea8e9dfed","nomeProduto":"Vestido Longo Tomara que Caia","total":79,"nomeCliente":"Kailany Vitoria Pereira","cpfCliente":"62652034367","telefoneCliente":"85992915094","tipoEntrega":"retirada","dataRetirada":"amanhã às 14h"}'
+node ~/.openclaw/workspace/skills/criarPedido/criarPedido.js '{"orderId":"ADL-MPMSKZ2D","paymentMPId":"123456","produtoId":"156d0830-ab3f-4c5d-b83c-ee1ea8e9dfed","nomeProduto":"Vestido Longo Tomara que Caia","total":79,"nomeCliente":"Kailany Vitoria Pereira","cpfCliente":"62652034367","telefoneCliente":"85992915094","tipoEntrega":"retirada","dataRetirada":"amanhã às 14h"}' '{{From}}'
 ```
 
 ## Resposta
